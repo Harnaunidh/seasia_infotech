@@ -1,0 +1,5 @@
+John, 20, A
+Alice, 22, B
+Bob, 19, C
+Charlie, 21, A
+David, 23, B
