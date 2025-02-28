@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="/static/form.css">
+    <link rel="stylesheet" href="/static/register.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">To-Do List</div>
+    </nav>
     <div class="container">
-        <h2>Register</h2>
+        <h1>Register:</h1>
 
         <!-- Display success messages -->
         {% if messages %}
@@ -23,7 +26,7 @@
             <button type="submit">Register</button>
         </form>
         
-        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        <p>Already have an account? <a style="text-shadow:1px 1px 2px rgb(56, 56, 56)" href="{% url 'login' %}">Login</a></p>
     </div>
 </body>
 </html>

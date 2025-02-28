@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <link rel="stylesheet" href="/static/todolist.css">
-
+</head>
 <body>
     <nav class="navbar">
         <div class="logo">To-Do List</div>
@@ -14,8 +14,9 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container1">
         <h1>Welcome, {{ user.username }}!</h1>
+        <h2>Add new tasks:</h2>
 
         <!-- Task Input Form -->
         <div class="task-form">
@@ -23,17 +24,20 @@
                 {% csrf_token %}
                 <input type="text" name="task_name" placeholder="Task Title" required>
                 <input type="text" name="task_deadline" placeholder="Deadline">
-                <textarea class="about-section" name="task_description" placeholder="About Task"></textarea>
+                <textarea name="task_description" placeholder="About Task"></textarea>
                 <button type="submit">Add Task</button>
             </form>
         </div>
-
+    </div>
+    <div class="container2">
+        <h1>Your Tasks:</h1>
         <!-- Task List -->
         <div class="task-table">
             <div class="task-header">
                 <span>Task Title</span>
                 <span>Due:</span>
                 <span>Description</span>
+                <span>Edit</span>
                 <span>-</span>
             </div>
 
@@ -41,33 +45,57 @@
             <div class="task-row">
                 <span>{{ task.name }}</span>
                 <span>{{ task.deadline }}</span>
-                <span>
-                    <button type="button" onclick="toggleDescription('desc{{ task.id }}')">View</button>
-                    <p id="desc{{ task.id }}" class="task-desc" style="display: none;">{{ task.description }}</p>
+                <span class="desc-column">
+                    <button type="button" class="toggle-btn" onclick="toggleDescription('desc{{ task.id }}', 'btn{{ task.id }}')" id="btn{{ task.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </button>
+                    <p id="desc{{ task.id }}" class="task-desc hidden">{{ task.description }}</p>
                 </span>
                 <span>
-                    <a href="{% url 'delete_task' task.id %}" class="delete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                      </svg></a>
+                    <a href="{% url 'edit_task' task.id %}" class="edit-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                            <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-8.292 8.292a.5.5 0 0 1-.168.11l-4 1a.5.5 0 0 1-.62-.62l1-4a.5.5 0 0 1 .11-.168L12.146.854zM11.207 3L3 11.207V13h1.793L13 4.793 11.207 3z"/>
+                        </svg>
+                    </a>
+                </span>                
+                <span>
+                    <a href="{% url 'delete_task' task.id %}" class="delete-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                        </svg>
+                    </a>
                 </span>
-            </div>            
+            </div>
+                    
             {% endfor %}
         </div>
     </div>
-</head>
+
 <script>
-    function toggleDescription(id) {
-        var desc = document.getElementById(id);
-        if (desc.style.display === "none" || desc.style.display === "") {
-            desc.style.display = "block"; // Show the description
+    function toggleDescription(descId, btnId) {
+        var desc = document.getElementById(descId);
+        var btn = document.getElementById(btnId);
+    
+        if (desc.classList.contains("hidden")) {
+            desc.classList.remove("hidden");
+            btn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                </svg>
+            `;
         } else {
-            desc.style.display = "none"; // Hide the description
+            desc.classList.add("hidden");
+            btn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
+            `;
         }
-    }
-</script>
-
-
+    }          
+</script>   
 </body>
 </html>
 

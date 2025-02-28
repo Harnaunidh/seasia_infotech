@@ -31,7 +31,6 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()  # Get authenticated user
             login(request, user)  # Log in the user
-            messages.success(request, f"Welcome {user.username}!")  # Show welcome message
             return redirect('todo')  # Redirect to task management page
     else:
         form = AuthenticationForm()  # Display an empty login form
@@ -51,8 +50,10 @@ def todo(request):
     if request.method == "POST":
         task_name = request.POST.get('task_name')
         task_deadline = request.POST.get('task_deadline')
-        Task.objects.create(user=request.user, name=task_name, deadline=task_deadline)
+        description = request.POST.get("task_description")
+        Task.objects.create(user=request.user, name=task_name, deadline=task_deadline, description=description)
         return redirect('todo')  # Refresh the page after adding a task
+    tasks = Task.objects.all()
     return render(request, 'todo/todo_list.html', {'tasks': tasks})
 
 @login_required 
@@ -60,3 +61,15 @@ def delete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id, user=request.user)
     task.delete()
     return redirect('todo')  # Redirect back to the task list
+
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+
+    if request.method == "POST":
+        task.name = request.POST["task_name"]
+        task.deadline = request.POST["task_deadline"]
+        task.description = request.POST["task_description"]
+        task.save()
+        return redirect("todo")  # Redirect to your task list page
+
+    return render(request, "todo/edit.html", {"task": task})

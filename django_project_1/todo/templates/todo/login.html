@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/static/form.css">
+    <link rel="stylesheet" href="/static/login.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">To-Do List</div>
+    </nav>
     <div class="container">
-        <h2>Login</h2>
+        <h1>Login:</h1>
 
         <form method="POST">
             {% csrf_token %}
@@ -16,7 +19,7 @@
             <button type="submit">Login</button>
         </form>
 
-        <p>Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+        <p>Don't have an account? <a style="text-shadow:1px 1px 2px rgb(56, 56, 56)" href="{% url 'register' %}">Sign up</a></p>
     </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 /* Reset some default styles */
 body {
-    background-color: #696969;
+    background-color: #3e4142;
 }
 
 body, h1, p {
@@ -11,12 +11,12 @@ body, h1, p {
 
 /* Navbar styling */
 .navbar {
+    background-color: #2b2d2e;
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background-color: #007BFF;
-    color: white;
 }
 
 .logo {
@@ -29,17 +29,23 @@ body, h1, p {
     gap: 10px;
 }
 
-.btn {
-    text-decoration: none;
-    background-color: white;
-    color: #007BFF;
-    padding: 8px 15px;
+.btn1, .btn2 {
+    background-color: #4b4b4b;
+    color: #b8b8b8;
+    padding: 8px 12px;
     border-radius: 5px;
+    text-decoration: none;
     font-weight: bold;
+    transition: background-color 0.2s ease, color 0.3s ease;
 }
 
-.btn:hover {
-    background-color: #0056b3;
+.nav-links .btn1:hover {
+    background-color: #4bb35d;
+    color: white;
+}
+
+.nav-links .btn2:hover {
+    background-color: #356ca7;
     color: white;
 }
 
@@ -47,15 +53,34 @@ body, h1, p {
 .hero {
     text-align: center;
     padding: 80px 20px;
-    background-color: #f4f4f4;
+    background-color: #3e4142;
 }
 
 .hero h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
+    color: #f1f1f1;
+    font-size: 52px;
+    margin-bottom: 55px;
 }
 
 .hero p {
     font-size: 18px;
-    color: #333;
+    color: #b1b1b1;
+    margin-bottom: 8px;
+}
+
+.hero .btn3 {
+    background-color: #3e4142;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    color: #b8b8b8;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.3s ease;
+}
+
+.hero .btn3:hover {
+    background-color: #356ca7;
+    color: white;
 }

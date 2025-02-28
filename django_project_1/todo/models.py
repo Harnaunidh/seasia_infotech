@@ -7,6 +7,7 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # User who owns the task
     name = models.CharField(max_length=255)
     deadline = models.CharField(max_length=100, null=True, blank=True)
+    description = models.TextField(blank=True, null=True)  
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

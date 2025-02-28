@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #414141;
+    background-color: #3e4142;
     margin: 0;
     padding: 0;
 }
@@ -37,13 +37,22 @@ body {
 }
 
 /* Container */
-.container {
-    width: 90%;
-    max-width: 800px;
+.container1 {
+    max-width: 600px;
     margin: auto;
-    background: #3b3b3b;
+    background: #343536;
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+    margin-top: 40px;
+    border-radius: 8px;
+}
+
+.container2 {
+    max-width: 850px;
+    margin: auto;
+    background: #3e4142;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
     margin-top: 40px;
     border-radius: 8px;
 }
@@ -54,17 +63,17 @@ h1 {
     margin-bottom: 35px;
 }
 
+h2 {
+    color: #f1f1f1;
+
+}
+
 span {
     font-size: 16px;
     color: #444;
     padding: 5px;
 }
 
-/* .about-section{
-    font-size: 16px;
-    color: #444;
-    padding: 5px;
-} */
 /* Task Form */
 .task-form {
     display: flex;
@@ -73,7 +82,7 @@ span {
 }
 
 .task-form input, .task-form textarea {
-    width: 97%;
+    width: 96%;
     padding: 12px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
@@ -85,13 +94,33 @@ span {
 .task-form button {
     background-color: #3676bb;
     color: white;
+    font-size: 14px;
     font-weight: 500;
-    padding: 10px;
-    margin-top: 20px;
+    padding: 10px 15px;
+    margin-top: 8px;
+    margin-bottom: 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.edit-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #3990ec;
+    transition: 0.3s;
+}
+
+.edit-btn:hover svg {
+    fill: #0056b3;
 }
 
 .task-form button:hover {
@@ -107,7 +136,7 @@ span {
 .task-header, .task-row {
     display: grid;
     text-align: center;
-    grid-template-columns: 1fr 2fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
     padding: 10px;
     border-bottom: 1px solid #646464;
     background-color: #d1d1d1;
@@ -120,36 +149,65 @@ span {
 }
 
 .task-row span {
+    color: #313131;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 /* Description */
-.task-desc {
-    display: none;
-    background-color: #e9ecef;
-    padding: 5px;
-    border-radius: 5px;
-    margin-top: 5px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
+.desc-column {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.task-desc.show {
-    max-height: 200px; /* Adjust based on your content */
+.task-desc {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s;
+    background: #f9f9f9;
+    padding: 0 10px;
+    width: 80%;
+    border-left: 3px solid #313131;
+    text-align: center;
+    opacity: 0; /* Hidden by default */
+}
+
+.task-desc.hidden {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+}
+
+.task-desc:not(.hidden) {
+    max-height: 100px; /* Adjust height if needed */
+    opacity: 1;
+    padding: 5px;
+}
+
+.toggle-btn {
+    color: #2b2d2e;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.toggle-btn:hover {
+    transform: scale(1.1);
 }
 
 /* Buttons */
 .delete-btn {
-    color: rgb(221, 14, 14);
+    color: rgb(218, 25, 25);
     padding: 5px 10px;
-    font-weight: 100;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .delete-btn:hover {
-    color: rgb(170, 0, 0);
+    transform: scale(1.1);
 }
